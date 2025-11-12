@@ -10,7 +10,7 @@ import base64
 st.set_page_config(page_title="Panchmahals Voter Info Viewer", layout="wide")
 
 DATA_FILE = "data/voter_data.xlsx"
-PDF_FOLDER = "pdfs"
+PDF_FOLDER = "static"
 LOG_FILE = "usage_log.txt"
 
 # ==============================
@@ -43,6 +43,24 @@ def display_pdf(file_path):
             width="100%" height="800px" type="application/pdf"></iframe>
     """
     st.markdown(pdf_display, unsafe_allow_html=True)
+
+import streamlit as st
+import streamlit.components.v1 as components
+import urllib.parse
+
+BASE_PDF_URL = "https://mahekshah5858.github.io/ec_search/static"
+
+def display_pdf_1(pdf_filename):
+    BASE_PDF_URL = "https://mahekshah5858.github.io/ec_search/static"
+    pdf_url = f"{BASE_PDF_URL}/{urllib.parse.quote(pdf_filename)}"
+    gview_url = f"https://docs.google.com/gview?url={pdf_url}&embedded=true"
+
+    components.html(
+        f"""
+        <iframe src="{gview_url}" width="100%" height="800" frameborder="0"></iframe>
+        """,
+        height=820,
+    )
 
 # ==============================
 # HEADER + DISCLAIMER
@@ -122,7 +140,8 @@ if os.path.exists(pdf_path):
 
     # Inline PDF viewer
     st.subheader("📘 Polling Station Document Preview")
-    display_pdf(pdf_path)
+    # display_pdf(pdf_path)
+    display_pdf_1(pdf_filename)
 
     log_user_action(f"Viewed PDF: {pdf_filename}")
 else:
