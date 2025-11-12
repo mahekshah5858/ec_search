@@ -51,8 +51,8 @@ import urllib.parse
 BASE_PDF_URL = "https://mahekshah5858.github.io/ec_search/static"
 
 def display_pdf_1(pdf_filename):
-    BASE_PDF_URL = "https://mahekshah5858.github.io/ec_search/static"
     pdf_url = f"{BASE_PDF_URL}/{urllib.parse.quote(pdf_filename)}"
+    # print(pdf_url)
     gview_url = f"https://docs.google.com/gview?url={pdf_url}&embedded=true"
 
     components.html(
